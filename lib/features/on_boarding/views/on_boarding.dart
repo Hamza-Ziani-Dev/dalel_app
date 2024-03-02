@@ -3,7 +3,6 @@ import 'package:dalel_app/core/utils/app_text_styles.dart';
 import 'package:dalel_app/core/widgets/custom_button.dart';
 import 'package:dalel_app/features/on_boarding/widgets/on_boarding_widget_body.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class OnBoardingView extends StatefulWidget {
   const OnBoardingView({super.key});
@@ -19,13 +18,17 @@ class _OnBoardingViewState extends State<OnBoardingView> {
       child: Scaffold(
           body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
+        child: ListView(
+          physics: const BouncingScrollPhysics(),
           children: [
             const SizedBox(
               height: 40,
             ),
             customNavbarApp(),
             const OnBoardingWidgetBody(),
+            const SizedBox(
+              height: 40,
+            ),
             const CustomButton(
               text: AppStrings.next,
             ),

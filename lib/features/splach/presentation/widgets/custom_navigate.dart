@@ -1,7 +1,10 @@
  import 'package:go_router/go_router.dart';
 
-Future<Null> customNavigate(context, String path) {
-    return Future.delayed(const Duration(seconds: 2), () {
+void customNavigate(context, String path) {
     GoRouter.of(context).push(path);
-  });
+  }
+
+
+  void customReplacementNavigate(context, String path) {
+    GoRouter.of(context).pushReplacement(path);
   }

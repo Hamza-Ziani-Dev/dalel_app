@@ -1,7 +1,6 @@
 import 'package:dalel_app/core/utils/app_string.dart';
 import 'package:dalel_app/core/utils/app_text_styles.dart';
 import 'package:dalel_app/features/splach/presentation/widgets/custom_navigate.dart';
-// import 'package:dalel_app/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class SplachView extends StatefulWidget {
@@ -14,7 +13,10 @@ class SplachView extends StatefulWidget {
 class _SplachViewState extends State<SplachView> {
   @override
   void initState() {
-    customNavigate(context, '/onBoarding');
+    Future.delayed(const Duration(seconds: 2), () {
+      customReplacementNavigate(context, '/onBoarding');
+    });
+    
     super.initState();
   }
 
