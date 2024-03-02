@@ -1,6 +1,6 @@
 import 'package:dalel_app/core/utils/app_string.dart';
 import 'package:dalel_app/core/utils/app_text_styles.dart';
-import 'package:dalel_app/core/widgets/custom_navigate.dart';
+import 'package:dalel_app/features/splach/presentation/widgets/custom_navigate.dart';
 // import 'package:dalel_app/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
