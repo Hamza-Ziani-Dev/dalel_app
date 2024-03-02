@@ -1,5 +1,6 @@
 import 'package:dalel_app/core/utils/app_string.dart';
 import 'package:dalel_app/core/utils/app_text_styles.dart';
+import 'package:dalel_app/core/widgets/custom_navigate.dart';
 // import 'package:dalel_app/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -12,8 +13,14 @@ class SplachView extends StatefulWidget {
 
 class _SplachViewState extends State<SplachView> {
   @override
+  void initState() {
+    customNavigate(context, '/onBoarding');
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: Center(
         child: Text(
           AppStrings.appName,
