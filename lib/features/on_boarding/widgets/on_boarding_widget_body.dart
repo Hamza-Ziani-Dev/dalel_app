@@ -3,23 +3,19 @@ import 'package:dalel_app/features/on_boarding/data/models/on_boarding_data.dart
 import 'package:dalel_app/features/on_boarding/widgets/custom_smoot_indicator.dart';
 import 'package:flutter/material.dart';
 
-class OnBoardingWidgetBody extends StatefulWidget {
-  const OnBoardingWidgetBody({super.key});
-
-  @override
-  State<OnBoardingWidgetBody> createState() => _OnBoardingWidgetBodyState();
-}
-
-class _OnBoardingWidgetBodyState extends State<OnBoardingWidgetBody> {
-  final PageController _controller = PageController();
-
+class OnBoardingWidgetBody extends StatelessWidget {
+  const OnBoardingWidgetBody(
+      {super.key, required this.controller, this.onPageChanged});
+  final PageController controller;
+  final Function(int)? onPageChanged;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 500,
       child: PageView.builder(
+        onPageChanged: onPageChanged,
         physics: const BouncingScrollPhysics(),
-        controller: _controller,
+        controller: controller,
         itemCount: onBoardingData.length,
         itemBuilder: (context, index) {
           return Column(
@@ -39,7 +35,7 @@ class _OnBoardingWidgetBodyState extends State<OnBoardingWidgetBody> {
                 height: 24,
               ),
               CutsomSmootIndicator(
-                controller: _controller,
+                controller: controller,
               ),
               const SizedBox(
                 height: 32,

@@ -1,7 +1,8 @@
 import 'package:dalel_app/core/utils/app_string.dart';
 import 'package:dalel_app/core/utils/app_text_styles.dart';
-import 'package:dalel_app/core/widgets/custom_button.dart';
+import 'package:dalel_app/features/on_boarding/widgets/custom_get_button.dart';
 import 'package:dalel_app/features/on_boarding/widgets/on_boarding_widget_body.dart';
+import 'package:dalel_app/features/splach/presentation/widgets/custom_navigate.dart';
 import 'package:flutter/material.dart';
 
 class OnBoardingView extends StatefulWidget {
@@ -12,6 +13,8 @@ class OnBoardingView extends StatefulWidget {
 }
 
 class _OnBoardingViewState extends State<OnBoardingView> {
+  final PageController _controller = PageController(initialPage: 0);
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -25,13 +28,18 @@ class _OnBoardingViewState extends State<OnBoardingView> {
               height: 40,
             ),
             customNavbarApp(),
-            const OnBoardingWidgetBody(),
+            OnBoardingWidgetBody(
+              onPageChanged: (index) {
+                setState(() {
+                  currentIndex = index;
+                });
+              },
+              controller: _controller,
+            ),
             const SizedBox(
-              height: 40,
+              height: 10,
             ),
-            const CustomButton(
-              text: AppStrings.next,
-            ),
+            GetButton(currentIndex: currentIndex, controller: _controller),
             const SizedBox(
               height: 17,
             ),
@@ -44,10 +52,15 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   Align customNavbarApp() {
     return Align(
       alignment: Alignment.topRight,
-      child: Text(
-        AppStrings.skip,
-        style: CustomTextStyles.poppins300style16
-            .copyWith(fontWeight: FontWeight.w400),
+      child: GestureDetector(
+        onTap: () {
+          customReplacementNavigate(context, '/signin');
+        },
+        child: Text(
+          AppStrings.skip,
+          style: CustomTextStyles.poppins300style16
+              .copyWith(fontWeight: FontWeight.w400),
+        ),
       ),
     );
   }
