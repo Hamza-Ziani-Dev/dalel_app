@@ -1,3 +1,5 @@
+import 'package:dalel_app/core/database/cache/cache_helper.dart';
+import 'package:dalel_app/core/services/service_locator.dart';
 import 'package:dalel_app/core/utils/app_string.dart';
 import 'package:dalel_app/core/utils/app_text_styles.dart';
 import 'package:dalel_app/features/splach/presentation/widgets/custom_navigate.dart';
@@ -13,10 +15,18 @@ class SplachView extends StatefulWidget {
 class _SplachViewState extends State<SplachView> {
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 2), () {
-      customReplacementNavigate(context, '/onBoarding');
-    });
-    
+    bool onBoardingVisited =
+        getIt<CacheHelper>().getData(key: 'OnBoardingVisited') ?? false;
+    if (onBoardingVisited == true) {
+      Future.delayed(const Duration(seconds: 2), () {
+        customReplacementNavigate(context, '/signup');
+      });
+    } else {
+      Future.delayed(const Duration(seconds: 2), () {
+        customReplacementNavigate(context, '/onBoarding');
+      });
+    }
+
     super.initState();
   }
 
