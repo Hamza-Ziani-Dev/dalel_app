@@ -1,8 +1,8 @@
 import 'package:dalel_app/core/utils/app_string.dart';
 import 'package:dalel_app/core/utils/app_text_styles.dart';
-import 'package:dalel_app/features/on_boarding/views/functions/on_boarding_visited.dart';
-import 'package:dalel_app/features/on_boarding/widgets/custom_get_button.dart';
-import 'package:dalel_app/features/on_boarding/widgets/on_boarding_widget_body.dart';
+import 'package:dalel_app/features/on_boarding/presentation/views/functions/on_boarding_visited.dart';
+import 'package:dalel_app/features/on_boarding/presentation/widgets/custom_get_button.dart';
+import 'package:dalel_app/features/on_boarding/presentation/widgets/on_boarding_widget_body.dart';
 import 'package:dalel_app/features/splach/presentation/widgets/custom_navigate.dart';
 import 'package:flutter/material.dart';
 

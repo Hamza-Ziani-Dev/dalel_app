@@ -1,6 +1,6 @@
 import 'package:dalel_app/core/utils/app_string.dart';
 import 'package:dalel_app/core/utils/app_text_styles.dart';
-import 'package:dalel_app/features/auth/widgets/custom_check_box.dart';
+import 'package:dalel_app/features/auth/presentation/widgets/custom_check_box.dart';
 import 'package:flutter/material.dart';
 
 class CustomTermCondition extends StatelessWidget {
