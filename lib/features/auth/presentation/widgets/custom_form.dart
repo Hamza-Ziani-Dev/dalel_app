@@ -1,7 +1,10 @@
 // ignore_for_file: use_key_in_widget_constructors
 
+import 'package:dalel_app/core/functions/custom_toast.dart';
+import 'package:dalel_app/core/utils/app_colors.dart';
 import 'package:dalel_app/features/auth/presentation/auth_cubit/auth_cubit.dart';
 import 'package:dalel_app/features/auth/presentation/auth_cubit/auth_state.dart';
+import 'package:dalel_app/features/splach/presentation/widgets/custom_navigate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dalel_app/core/utils/app_string.dart';
@@ -17,9 +20,16 @@ class CustomForm extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         // Add any listener logic here if needed
+        if (state is SignUpSuccessState) {
+          showToast("Add With Success!");
+          customNavigate(context, '/signin');
+        } else if (state is SignUpFieldState) {
+          showToast(state.errorMessage);
+        }
       },
       builder: (context, state) {
         return Form(
+          key: BlocProvider.of<AuthCubit>(context).signUpFormKey,
           child: Column(
             children: [
               CustomTextFieldWidget(
@@ -49,16 +59,29 @@ class CustomForm extends StatelessWidget {
                 },
               ),
               const CustomTermCondition(),
-              const SizedBox(
-                height: 40,
-              ),
-              CustomButton(
-                onPressed: () {
-                  BlocProvider.of<AuthCubit>(context)
-                      .signUpUserWithEmailAndPassword();
-                },
-                text: AppStrings.signUp,
-              ),
+              const SizedBox(height: 40),
+              state is SignUpLoadingState
+                  ? CircularProgressIndicator(
+                      color: AppColors.primaryColor,
+                    )
+                  : CustomButton(
+                      color:
+                          BlocProvider.of<AuthCubit>(context).statusBox == false
+                              ? AppColors.gray
+                              : null,
+                      onPressed: () {
+                        if (BlocProvider.of<AuthCubit>(context).statusBox ==
+                            true) {
+                          if (BlocProvider.of<AuthCubit>(context)
+                              .signUpFormKey
+                              .currentState!
+                              .validate()) {
+                            BlocProvider.of<AuthCubit>(context)
+                                .signUpUserWithEmailAndPassword();
+                          }
+                        }
+                      },
+                      text: AppStrings.signUp),
             ],
           ),
         );

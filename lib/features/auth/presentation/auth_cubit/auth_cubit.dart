@@ -3,6 +3,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'auth_state.dart';
 
@@ -13,6 +14,8 @@ class AuthCubit extends Cubit<AuthState> {
   late String? lastName;
   late String? emailAddress;
   late String? password;
+  bool? statusBox = false;
+  GlobalKey<FormState> signUpFormKey = GlobalKey();
 
   signUpUserWithEmailAndPassword() async {
     try {
@@ -33,5 +36,11 @@ class AuthCubit extends Cubit<AuthState> {
     } catch (e) {
       emit(SignUpFieldState(errorMessage: e.toString()));
     }
+  }
+
+  // Update Status Check Box:
+  updateStatusCheckBox({required val}) {
+    statusBox = val;
+    emit(StatusBox());
   }
 }

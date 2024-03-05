@@ -10,6 +10,7 @@ class SignUpSuccessState extends AuthState {}
 
 class SignUpFieldState extends AuthState {
   final String errorMessage;
-
   SignUpFieldState({required this.errorMessage});
 }
+
+class StatusBox extends AuthState {}
