@@ -16,7 +16,9 @@ class AuthCubit extends Cubit<AuthState> {
   late String? password;
   bool? statusBox = false;
   GlobalKey<FormState> signUpFormKey = GlobalKey();
+  GlobalKey<FormState> signInFormKey = GlobalKey();
 
+// Sign Up:
   signUpUserWithEmailAndPassword() async {
     try {
       emit(SignUpLoadingState());
@@ -42,5 +44,26 @@ class AuthCubit extends Cubit<AuthState> {
   updateStatusCheckBox({required val}) {
     statusBox = val;
     emit(StatusBox());
+  }
+
+// Sign In :
+  signInUserWithEmailAndPassword() async {
+    try {
+      emit(SignInLoadingState());
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailAddress!,
+        password: password!,
+      );
+      emit(SignInSuccessState());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        emit(SignInFieldState(errorMessage: 'No user found for that email.'));
+      } else if (e.code == 'wrong-password') {
+        emit(SignInFieldState(
+            errorMessage: 'Wrong password provided for that user.'));
+      }
+    } catch (e) {
+      emit(SignInFieldState(errorMessage: e.toString()));
+    }
   }
 }

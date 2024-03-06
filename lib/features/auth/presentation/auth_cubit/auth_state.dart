@@ -14,3 +14,12 @@ class SignUpFieldState extends AuthState {
 }
 
 class StatusBox extends AuthState {}
+
+class SignInLoadingState extends AuthState {}
+
+class SignInSuccessState extends AuthState {}
+
+class SignInFieldState extends AuthState {
+  final String errorMessage;
+  SignInFieldState({required this.errorMessage});
+}

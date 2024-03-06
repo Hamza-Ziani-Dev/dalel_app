@@ -12,8 +12,8 @@ import 'package:dalel_app/core/widgets/custom_button.dart';
 import 'package:dalel_app/features/auth/presentation/widgets/custom_term_condition.dart';
 import 'package:dalel_app/features/auth/presentation/widgets/custom_text_field_widget.dart';
 
-class CustomForm extends StatelessWidget {
-  const CustomForm({Key? key});
+class CustomFormSignup extends StatelessWidget {
+  const CustomFormSignup({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +78,7 @@ class CustomForm extends StatelessWidget {
                               .validate()) {
                             BlocProvider.of<AuthCubit>(context)
                                 .signUpUserWithEmailAndPassword();
+                                customReplacementNavigate(context,'/home');
                           }
                         }
                       },

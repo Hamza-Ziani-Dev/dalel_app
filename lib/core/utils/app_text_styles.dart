@@ -51,9 +51,15 @@ abstract class CustomTextStyles {
     fontFamily: "Poppins",
   );
   static const pacifico700style32 = TextStyle(
-    fontSize: 42,
-    fontWeight: FontWeight.bold,
+    fontSize: 32,
+    fontWeight: FontWeight.w700,
     color: Colors.white,
     fontFamily: "Pacifico",
+  );
+  static const saira700style32 = TextStyle(
+    fontSize: 32,
+    fontWeight: FontWeight.w700,
+    color: Colors.white,
+    fontFamily: "Saira",
   );
 }

@@ -1,7 +1,7 @@
-import 'package:dalel_app/core/services/service_locator.dart';
 import 'package:dalel_app/features/auth/presentation/auth_cubit/auth_cubit.dart';
 import 'package:dalel_app/features/auth/presentation/views/signin.dart';
 import 'package:dalel_app/features/auth/presentation/views/signup.dart';
+import 'package:dalel_app/features/home/presentation/views/home_view.dart';
 import 'package:dalel_app/features/on_boarding/presentation/views/on_boarding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,6 +18,12 @@ final GoRouter router = GoRouter(
       },
     ),
     GoRoute(
+      path: '/home',
+      builder: (BuildContext context, GoRouterState state) {
+        return const HomeView();
+      },
+    ),
+    GoRoute(
       path: '/onBoarding',
       builder: (BuildContext context, GoRouterState state) {
         return const OnBoardingView();
@@ -27,8 +33,7 @@ final GoRouter router = GoRouter(
       path: '/signup',
       builder: (BuildContext context, GoRouterState state) {
         return BlocProvider(
-          create: (context) =>
-              getIt<AuthCubit>(), // Create an instance of AuthCubit
+          create: (context) => AuthCubit(), // Create an instance of AuthCubit
           child: const SignupView(),
         );
       },
@@ -37,8 +42,7 @@ final GoRouter router = GoRouter(
       path: '/signin',
       builder: (BuildContext context, GoRouterState state) {
         return BlocProvider(
-          create: (context) =>
-              getIt<AuthCubit>(), // Create an instance of AuthCubit
+          create: (context) => AuthCubit(), // Create an instance of AuthCubit
           child: const SigninView(),
         );
       },
