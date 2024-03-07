@@ -22,7 +22,9 @@ class _SplachViewState extends State<SplachView> {
       Future.delayed(const Duration(seconds: 2), () {
         FirebaseAuth.instance.currentUser == null
             ? customReplacementNavigate(context, '/signin')
-            : customReplacementNavigate(context, '/home');
+            : FirebaseAuth.instance.currentUser!.emailVerified == true
+                ? customReplacementNavigate(context, '/home')
+                : customReplacementNavigate(context, '/home');
       });
     } else {
       Future.delayed(const Duration(seconds: 2), () {

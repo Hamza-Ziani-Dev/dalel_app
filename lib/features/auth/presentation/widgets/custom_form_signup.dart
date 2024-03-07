@@ -21,8 +21,9 @@ class CustomFormSignup extends StatelessWidget {
       listener: (context, state) {
         // Add any listener logic here if needed
         if (state is SignUpSuccessState) {
-          showToast("Add With Success!");
-          customNavigate(context, '/signin');
+          showToast("Success!, Check Your email verify account");
+        
+          customReplacementNavigate(context, '/signin');
         } else if (state is SignUpFieldState) {
           showToast(state.errorMessage);
         }
@@ -78,7 +79,7 @@ class CustomFormSignup extends StatelessWidget {
                               .validate()) {
                             BlocProvider.of<AuthCubit>(context)
                                 .signUpUserWithEmailAndPassword();
-                                customReplacementNavigate(context,'/home');
+                            // customReplacementNavigate(context,'/signin');
                           }
                         }
                       },

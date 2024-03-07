@@ -3,35 +3,30 @@ import 'package:dalel_app/core/functions/custom_toast.dart';
 import 'package:dalel_app/core/utils/app_colors.dart';
 import 'package:dalel_app/features/auth/presentation/auth_cubit/auth_cubit.dart';
 import 'package:dalel_app/features/auth/presentation/auth_cubit/auth_state.dart';
-import 'package:dalel_app/features/auth/presentation/widgets/forgot_password_widget.dart';
 import 'package:dalel_app/features/splach/presentation/widgets/custom_navigate.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dalel_app/core/utils/app_string.dart';
 import 'package:dalel_app/core/widgets/custom_button.dart';
 import 'package:dalel_app/features/auth/presentation/widgets/custom_text_field_widget.dart';
 
-class CustomFormSignin extends StatelessWidget {
-  const CustomFormSignin({Key? key});
+class CustomFormForgotPassword extends StatelessWidget {
+  const CustomFormForgotPassword({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-        // Add any listener logic here if needed
-        if (state is SignInSuccessState) {
-          // showToast("Welcome");
-          FirebaseAuth.instance.currentUser!.emailVerified
-              ? customNavigate(context, '/signin')
-              : showToast("Verify Your Email");
-        } else if (state is SignInFieldState) {
+        if (state is ForgotPasswordSuccessState) {
+          showToast("Check Your Email to rest Password");
+          customNavigate(context, '/signin');
+        } else if (state is ForgotPasswordFieldState) {
           showToast(state.errorMessage);
         }
       },
       builder: (context, state) {
         return Form(
-          key: BlocProvider.of<AuthCubit>(context).signInFormKey,
+          key: BlocProvider.of<AuthCubit>(context).forgotPasswordFormKey,
           child: Column(
             children: [
               CustomTextFieldWidget(
@@ -41,30 +36,23 @@ class CustomFormSignin extends StatelessWidget {
                       emailAddress;
                 },
               ),
-              CustomTextFieldWidget(
-                labelText: AppStrings.password,
-                onChanged: (password) {
-                  BlocProvider.of<AuthCubit>(context).password = password;
-                },
-              ),
-              const ForgetPasswordTestWidget(),
               const SizedBox(height: 80),
-              state is SignInLoadingState
+              state is ForgotPasswordLoadingState
                   ? CircularProgressIndicator(
                       color: AppColors.primaryColor,
                     )
                   : CustomButton(
                       onPressed: () {
                         if (BlocProvider.of<AuthCubit>(context)
-                            .signInFormKey
+                            .forgotPasswordFormKey
                             .currentState!
                             .validate()) {
                           BlocProvider.of<AuthCubit>(context)
-                              .signInUserWithEmailAndPassword();
-                          customReplacementNavigate(context, '/home');
+                              .resetPasswordWithEmail();
+                          customReplacementNavigate(context, '/signin');
                         }
                       },
-                      text: AppStrings.signIn),
+                      text: AppStrings.sendResetPasswordLink),
             ],
           ),
         );
